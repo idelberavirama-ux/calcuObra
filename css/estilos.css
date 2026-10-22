@@ -1,0 +1,197 @@
+:root {
+    --primary-color: #1a4971;
+    --secondary-color: #f38218;
+    --bg-color: #f4f6f9;
+    --card-bg: #ffffff;
+    --text-color: #333333;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+/* Contenedor simulador de teléfono móvil */
+.app-container {
+    width: 100%;
+    max-width: 420px;
+    min-height: 100vh;
+    background-color: var(--card-bg);
+    box-shadow: 0 0 15px rgba(0,0,0,0.15);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding-bottom: 60px;
+}
+
+/* Encabezado */
+.header {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 15px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.1rem;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-title { flex-grow: 1; }
+
+/* Estilos de pantallas */
+.screen { display: none; padding: 20px; }
+.screen.active { display: block; }
+
+/* Pantalla Bienvenida */
+.logo-container { text-align: center; margin: 30px 0; }
+.welcome-text { text-align: center; font-size: 1.2rem; margin-bottom: 30px; font-weight: 600; color: var(--primary-color); }
+
+/* Botones generales */
+.btn {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    margin-bottom: 12px;
+    transition: 0.2s;
+}
+
+.btn-primary { background-color: var(--primary-color); color: white; }
+.btn-secondary { background-color: var(--secondary-color); color: white; }
+.btn-danger { background-color: #dc3545; color: white; }
+.btn-warning { background-color: #ffc107; color: #212529; }
+
+/* Grilla de los 15 Módulos */
+.modules-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-top: 15px;
+    width: 100%;
+    box-sizing: border-box;
+
+}
+
+.module-card {
+    background: #eef3f8;
+    border: 1px solid #dcdcdc;
+    border-radius: 10px;
+    padding: 12px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+
+.module-card:hover { background: #e0e9f4; }
+.module-card span.number {
+    background: var(--primary-color);
+    color: white;
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    display: inline-block;
+    line-height: 22px;
+    font-size: 0.75rem;
+}
+
+/* Formularios */
+.form-group { margin-bottom: 12px; }
+.form-group label { display: block; font-size: 0.85rem; font-weight: bold; margin-bottom: 4px; }
+.form-group input, .form-group select {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 0.95rem;
+}
+
+.result-box {
+    background-color: #eaf4ea;
+    border: 1px solid #c3e6cb;
+    padding: 12px;
+    border-radius: 8px;
+    margin-top: 15px;
+    font-size: 0.9rem;
+}
+
+/* Barra de navegación inferior (Figma) */
+.navbar {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 420px;
+    background-color: #ffffff;
+    border-top: 1px solid #ddd;
+    display: flex;
+    justify-content: space-around;
+    padding: 8px 0;
+    z-index: 10;
+}
+
+.nav-item {
+    border: none;
+    background: none;
+    font-size: 0.75rem;
+    color: var(--primary-color);
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.project-item {
+    background: #fff;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+/* Asegurar que las pantallas de los módulos tengan buen espacio interior y scroll si es necesario */
+.screen {
+    display: none;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.screen.active {
+    display: block;
+}
+
+/* Estilo específico para las cajas de resultados en los módulos */
+.result-box {
+    background-color: #eaf4ea;
+    border: 1px solid #c3e6cb;
+    padding: 12px;
+    border-radius: 8px;
+    margin-top: 15px;
+    margin-bottom: 20px; /* Margen extra para que no choque con la barra inferior */
+    font-size: 0.9rem;
+    word-break: break-word;
+}

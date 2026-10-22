@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CalcuObra - Presupuesto en Segundos</title>
+    <!-- Vinculación del archivo CSS externo -->
+    <link rel="stylesheet" href="css/estilos.css">
+    <!-- Librería para exportar reportes en PDF sin internet -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    
+        
+</head>
+
+<body>
+
+    <div class="app-container">
+
+        <!-- Encabezado de la App -->
+        <div class="header">
+            <span id="headerTitle" class="header-title">CalcuObra</span>
+        </div>
+
+        <!-- 1.0 PANTALLA DE INICIO / BIENVENIDA -->
+        <div id="screenBienvenida" class="screen active">
+            <div class="logo-container">
+                <h1 style="color: var(--primary-color); margin: 0;">🏗️ CalcuObra</h1>
+                <p style="color: var(--secondary-color); font-weight: bold;">Presupuesto de Obra en segundos</p>
+            </div>
+            <div class="welcome-text">¡Bienvenido!</div>
+            <button class="btn btn-primary" onclick="navegarA('screenMenuGeneral')">Menú Rápido</button>
+            <button class="btn btn-secondary" onclick="navegarA('screenCrearProyecto')">Crear Proyecto</button>
+            <button class="btn btn-warning" onclick="navegarA('screenListaProyectos')">Ver Proyectos Guardados</button>
+        </div>
+
+        <!-- 2.0 PANTALLA CREAR PROYECTO -->
+        <div id="screenCrearProyecto" class="screen">
+            <h3>📂 Crear Nuevo Proyecto</h3>
+            <div class="form-group">
+                <label for="nombreNuevoProyecto">Nombre de la obra / proyecto:</label>
+                <input type="text" id="nombreNuevoProyecto" placeholder="Ej: Vivienda Julia Achinte">
+            </div>
+            <button class="btn btn-secondary" onclick="crearProyecto()">Guardar Proyecto</button>
+            <button class="btn btn-primary" onclick="navegarA('screenBienvenida')">Cancelar</button>
+        </div>
+
+        <!-- 3.0 LISTA DE PROYECTOS (CRUD) -->
+        <div id="screenListaProyectos" class="screen">
+            <h3>📁 Proyectos Guardados</h3>
+            <div id="listaProyectosContenedor">Cargando proyectos...</div>
+            <button class="btn btn-primary" style="margin-top: 15px;" onclick="navegarA('screenBienvenida')">Volver al
+                Inicio</button>
+        </div>
+
+        <!-- 4.0 PANEL PRINCIPAL DE OBRA (15 MÓDULOS) -->
+        <div id="screenPanelObra" class="screen">
+            <h4 id="nombreProyectoActivo" style="color: var(--secondary-color); margin-top: 0;">Obra: Sin Seleccionar</h4>
+            <div class="modules-grid">
+                <div class="module-card" onclick="abrirModulo('Descapote')"><span class="number">1</span> 🚜 Descapote</div>
+                <div class="module-card" onclick="alert('Módulo Replanteo en desarrollo')"><span class="number">2</span> 📐 Replanteo</div>
+                <div class="module-card" onclick="abrirModulo('Excavacion')"><span class="number">3</span> ⛏️ Excavación</div>
+                <div class="module-card" onclick="alert('Módulo Viga Cimentación en desarrollo')"><span class="number">4</span> 🏗️ Viga Cimentación</div>
+                <div class="module-card" onclick="alert('Módulo Pisos en Concreto en desarrollo')"><span class="number">5</span> 🧱 Pisos Concreto</div>
+                <div class="module-card" onclick="abrirModulo('Muros')"><span class="number">6</span> 🧱 Muros / Mampostería</div>
+                <div class="module-card" onclick="alert('Módulo Columnas en desarrollo')"><span class="number">7</span> 🏛️ Columnas</div>
+                <div class="module-card" onclick="alert('Módulo Viga Aérea en desarrollo')"><span class="number">8</span> 🏢 Viga Aérea</div>
+                <div class="module-card" onclick="alert('Módulo Cubierta en desarrollo')"><span class="number">9</span> 🏠 Cubierta</div>
+                <div class="module-card" onclick="alert('Módulo Repello en desarrollo')"><span class="number">10</span> 🖌️ Repello</div>
+                <div class="module-card" onclick="alert('Módulo Pintura en desarrollo')"><span class="number">11</span> 🎨 Pintura</div>
+                <div class="module-card" onclick="alert('Módulo Cerramientos en desarrollo')"><span class="number">12</span> 🚪 Cerramientos</div>
+                <div class="module-card" onclick="alert('Módulo Cerámica en desarrollo')"><span class="number">13</span> 🔲 Cerámica</div>
+                <div class="module-card" onclick="abrirModulo('Reporte')"><span class="number">14</span> 📊 Generar Reporte</div>
+                <div class="module-card" onclick="navegarA('screenListaProyectos')"><span class="number">15</span> 📂 Proyectos</div>
+            </div>
+        </div>
+
+        <!-- MÓDULO 1: DESCAPOTE -->
+        <div id="screenModuloDescapote" class="screen">
+            <button class="btn btn-warning" onclick="navegarA('screenPanelObra')"
+                style="padding: 5px 10px; width: auto;">← Volver</button>
+            <h3>🚜 Módulo: Descapote</h3>
+
+            <div class="form-group">
+                <label>Largo del terreno (m):</label>
+                <input type="number" id="descLargo" step="0.01" placeholder="Ej: 10.0">
+            </div>
+            <div class="form-group">
+                <label>Ancho del terreno (m):</label>
+                <input type="number" id="descAncho" step="0.01" placeholder="Ej: 8.0">
+            </div>
+            <div class="form-group">
+                <label>Espesor / Profundidad (m):</label>
+                <input type="number" id="descEspesor" step="0.01" placeholder="Ej: 0.20">
+            </div>
+
+            <!-- Porcentaje de expansión / esponjamiento -->
+            <div class="form-group">
+                <label>Porcentaje de Expansión / Esponjamiento:</label>
+                <select id="descPorcentaje" onchange="evaluarOtroPorcentaje(this)">
+                    <option value="20">20% (Tierra vegetal / Terreno normal)</option>
+                    <option value="25">25% (Tierra arcillosa seca)</option>
+                    <option value="30">30% (Arcilla húmeda / Terreno compacto)</option>
+                    <option value="40">40% (Terreno rocoso / Conglomerado)</option>
+                    <option value="otro">Otro porcentaje...</option>
+                </select>
+            </div>
+
+            <div class="form-group" id="campoOtroPorcentaje" style="display: none;">
+                <label>Ingrese el % de expansión personalizado:</label>
+                <input type="number" id="descPorcentajePersonalizado" placeholder="Ej: 35">
+            </div>
+
+            <button class="btn btn-secondary" onclick="calcularDescapote()">Calcular Descapote</button>
+            <div id="resultadoDescapote" class="result-box" style="display: none;"></div>
+        </div>
+           
+        <!-- LOGICA MÓDULO 3: EXCAVACIÓN -->
+        <div id="screenModuloExcavacion" class="screen">
+            <button class="btn btn-warning" onclick="navegarA('screenPanelObra')"
+                style="padding: 5px 10px; width: auto;">← Volver</button>
+            <h3>⛏️ Módulo: Excavación</h3>
+
+            <div class="form-group">
+                <label>Ancho de la excavación (m):</label>
+                <input type="number" id="excAncho" step="0.01" placeholder="Ej: 0.60">
+            </div>
+            <div class="form-group">
+                <label>Largo (m):</label>
+                <input type="number" id="excLargo" step="0.01" placeholder="Ej: 12.0">
+            </div>
+            <div class="form-group">
+                <label>Profundidad (m):</label>
+                <input type="number" id="excProfundidad" step="0.01" placeholder="Ej: 0.80">
+            </div>
+
+            <button class="btn btn-secondary" onclick="calcularExcavacion()">Calcular Excavación</button>
+            <div id="resultadoExcavacion" class="result-box" style="display: none;"></div>
+        </div>
+
+
+        <!-- MÓDULO 6: MUROS Y MAMPOSTERÍA -->
+        <div id="screenModuloMuros" class="screen">
+            <button class="btn btn-warning" onclick="navegarA('screenPanelObra')"
+                style="padding: 5px 10px; width: auto;">← Volver</button>
+            <h3>🧱 Módulo: Muros y Mampostería</h3>
+
+            <div class="form-group">
+                <label>Área total de muros (m²):</label>
+                <input type="number" id="muroArea" step="0.01" placeholder="Ej: 45.0">
+            </div>
+            <div class="form-group">
+                <label>Largo del Ladrillo (cm):</label>
+                <input type="number" id="muroLargoLadrillo" value="24">
+            </div>
+            <div class="form-group">
+                <label>Alto del Ladrillo (cm):</label>
+                <input type="number" id="muroAltoLadrillo" value="12">
+            </div>
+            <div class="form-group">
+                <label>Junta de pega / Mortero (cm):</label>
+                <input type="number" id="muroJunta" value="1.5" step="0.1">
+            </div>
+
+            <button class="btn btn-secondary" onclick="calcularMuros()">Calcular Materiales de Muro</button>
+            <div id="resultadoMuros" class="result-box" style="display: none;"></div>
+        </div>
+
+        <!-- MÓDULO 14: REPORTES -->
+        <div id="screenModuloReporte" class="screen">
+            <button class="btn btn-warning" onclick="navegarA('screenPanelObra')"
+                style="padding: 5px 10px; width: auto;">← Volver</button>
+            <h3>📊 Reporte de Presupuesto</h3>
+            <div id="contenidoReporte"
+                style="padding: 10px; background: white; border: 1px solid #ccc; border-radius: 8px;">
+                Cargando informe...
+            </div>
+            <br>
+            <button class="btn btn-secondary" onclick="descargarPDF()">Descargar Reporte PDF</button>
+        </div>
+
+        <!-- BARRA DE NAVEGACIÓN INFERIOR (FIGMA) -->
+        <div class="navbar">
+            <button class="nav-item" onclick="navegarA('screenBienvenida')">🏠<br>Inicio</button>
+            <button class="nav-item" onclick="navegarA('screenPanelObra')">📋<br>Menú</button>
+            <button class="nav-item" onclick="navegarA('screenCrearProyecto')">➕<br>Crear</button>
+            <button class="nav-item" onclick="navegarA('screenListaProyectos')">📂<br>Proyectos</button>
+        </div>
+
+    </div>
+
+   <!-- CARGA DE SCRIPTS MODULARES -->
+<script src="js/db.js"></script>
+<script src="js/Descapote.js"></script>
+<script src="js/Replanteo.js"></script>
+<script src="js/Excavacion.js"></script>
+<script src="js/Viga_Cimentacion.js"></script>
+<script src="js/Pisos_Concreto.js"></script>
+<script src="js/Muros_Mamposteria.js"></script>
+<script src="js/Columnas.js"></script>
+<script src="js/Viga_Aerea.js"></script>
+<script src="js/cubierta.js"></script>
+<script src="js/Repello.js"></script>
+<script src="js/Pintura.js"></script>
+<script src="js/Cerramientos.js"></script>
+<script src="js/Ceramica.js"></script>
+<script src="js/Generar_Reporte.js"></script>
+<script src="js/Proyectos.js"></script>
+<script src="js/app.js"></script>
+
+</body>
+</html>
+</body>
+
+</html>
